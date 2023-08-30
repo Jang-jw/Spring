@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+  
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 1. DB 연결에 관한 정보들을 가지는 객체를 생성 -->
+	<!-- 
+		HikariConfig config = new HikariConfig();
+		config.set ... ( "..." );
+	 -->
+	<bean id="config" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/com"></property>
+		<property name="username" value="com"></property>
+		<property name="password" value="com01"></property>
+	</bean>
+	
+	<!-- 2. Connection Pool 생성하기 -->
+	<!-- 
+		HikariDataSource datasource = new HikariDataSource(config);
+	 -->
+	 <bean id="datasource" class="com.zaxxer.hikari.HikariDataSource">
+	 	<constructor-arg ref="config"></constructor-arg>
+	 </bean>
+	 
+	 <!-- 3. SqlSessionFactoryBean 생성하기 -->
+	 <!-- 
+	 	SqlSessionFactoryBean factory = new SqlSessionFactoryBean(datasource);
+	  -->
+	  <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	<property name="dataSource" ref="datasource"></property>
+	  </bean>
+	  
+	  <!-- 4. DAO / Mapper 를 찾을 수 있도록 scan -->
+	  <mybatis:scan base-package="com.smhrd.mapper"/>
 		
 </beans>
