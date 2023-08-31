@@ -24,44 +24,40 @@
 			<p>스프링을 활용한 게시판 만들기</p>
 		</div>
 		<div class="card">
-			<div class="card-header">게시판</div>
+			<div class="card-header">게시판 작성</div>
 			<div class="card-body">
 
 
-				<!-- 풀이 -->
-				<!-- JSTL / EL 을 이용해서 게시글(idx, 제복, 작성자) 목록 출력 -->
-				<!-- 프로토타입 먼저 결정 : <thead> 와 <tbody> 필수 -->
-				<table class="table table-hover table-bordered">
-					<thead>
-						<tr>
-							<th>idx
-							</td>
-							<th>제목
-							</td>
-							<th>작성자
-							</td>
-							<th>작성일
-							</td>
-							<th>조회수
-							</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="board" items="${list }">
-							<tr>
-								<td>${board.idx }</td>
-								<td>${board.title }</td>
-								<td>${board.writer }</td>
-								<td>${board.indate }</td>
-								<td>${board.count }</td>
-								<%-- delete from BOARD where idx = #{idx} --%>
-								<td><a href="delete?idx=${board.idx }" class="btn btn-secondary">삭제</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				<form action="write" method="post">
 
-				<a href="goWrite" class="btn btn-success">게시글 작성하기</a>
+					<div class="form-group">
+						<label for="title">Title:</label> <input type="text"
+							class="form-control" placeholder="Enter Title" id="title"
+							name="title">
+					</div>
+
+					<div class="form-group">
+						<label for="writer">Writer:</label> <input type="text"
+							class="form-control" placeholder="Enter Writer" id="writer"
+							name="writer">
+					</div>
+
+					<div class="form-group">
+						<label for="img">IMG File:</label> <input type="file" id="img"
+							name="file">
+					</div>
+
+					<div class="form-group">
+						<label for="content">Content:</label>
+						<textarea rows="10" id="content" name="content"
+							class="form-control"></textarea>
+					</div>
+
+					<a href="list" class="btn btn-warning">목록으로</a>
+
+					<button type="submit" class="btn btn-primary">Submit</button>
+
+				</form>
 
 			</div>
 

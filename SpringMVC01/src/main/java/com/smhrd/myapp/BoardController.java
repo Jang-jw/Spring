@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smhrd.entity.Board;
 import com.smhrd.mapper.BoardMapper;
@@ -60,5 +61,47 @@ public class BoardController {
 		
 		// 3. View 선택 
 		return "boardList";
+	}
+	
+	@RequestMapping("/goWrite")
+	public String goWrite() {
+		
+		return "boardWrite";
+	}
+	
+	@RequestMapping("/write")
+	public String write(Board board) {
+	// public String write( @RequestParam("title") String subject, String writer, String content) {
+		
+		// 1. 수집
+		/* 
+		String title = request.getParameter("title");
+		String writer = request.getParameter("writer");
+		String content = request.getParameter("content");
+		
+		Board board = new Board();
+		board.setTitle(title);
+		board.setWriter(writer);
+		board.setContent(content);
+		*/
+		// 스프링에서는 파라미터 수집을 하지 않음 
+		// 매개변수에 수집해서 받을 수 있는 변수를 선언을 하면 알아서 넣어준다. 
+		// 	- 만약에 DTO 를 이용해서 수집한다면, 반드시 name 값과 필드변수명이 같아야 한다. 
+		//	- 하나의 데이터를 받을때도 변수명 == name 값이 같아야함, int 로 변환까지 자동으로 가능
+		//	- 변수명이 일치하지 않는 경우도 @RequestParam("name") 으로 수집을 진행할 수 있다. 
+		
+		// 2. 기능 구현 / 실행 
+		mapper.write(board);
+		
+		// 3. View 선택 
+		return "redirect:/list";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Board board) {
+		
+		mapper.delete(board);
+		
+		return "redirect:/list";
 	}
 }

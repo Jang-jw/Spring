@@ -6,4 +6,19 @@
 		select * from BOARD
 	</select>
 	
+	<insert id="write" parameterType="com.smhrd.entity.Board">
+		insert into BOARD (title, writer, content, img)
+		values(
+			#{title},
+			#{writer},
+			#{content},
+			#{img, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<delete id="delete">
+		delete from BOARD
+		where idx = #{idx}
+	</delete>
+	
 </mapper>

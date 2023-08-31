@@ -12,4 +12,6 @@ public interface BoardMapper { // Data Access "Object" 가 아님
 	// 추상메소드 
 	// 메소드 명 == id 
 	public List<Board> list();
+	public int write(Board board);
+	public void delete(Board board);
 }
