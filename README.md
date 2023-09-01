@@ -5,4 +5,4 @@
 - 08/31 목 : @Autowired / @RequestMapping / @Mapper / jquery / jstl / Bootstrap
 - <img src="https://github.com/Jang-jw/Spring/assets/134268098/6b77071e-9d11-484b-b967-3934780a681b" width="500">
 - 09/01 금 : Ajax / RestController / count + 1
-- <img src="https://github.com/Jang-jw/Spring/assets/134268098/cefaef09-c30d-46d6-9216-0b777e87ed6b" width="500">
+- <img src="https://github.com/Jang-jw/Spring/assets/134268098/fedbf11f-d076-4ff9-aa21-3ae98880df1e" width="500">
