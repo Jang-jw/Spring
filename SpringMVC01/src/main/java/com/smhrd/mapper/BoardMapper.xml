@@ -20,5 +20,24 @@
 		delete from BOARD
 		where idx = #{idx}
 	</delete>
+
+	<select id="detail" resultType="com.smhrd.entity.Board">
+		select * from BOARD
+		where idx = #{idx}
+	</select>
 	
+	<update id="update" parameterType="com.smhrd.entity.Board">
+		update BOARD set 
+		title = #{title}, 
+		writer = #{writer}, 
+		content = #{content}, 
+		img = #{img, jdbcType=VARCHAR}
+		where idx = #{idx}
+	</update>
+	
+	<update id="count">
+		update BOARD set
+		count = count + 1
+		where idx = #{idx}
+	</update>
 </mapper>

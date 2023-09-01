@@ -50,7 +50,7 @@
 						<c:forEach var="board" items="${list }">
 							<tr>
 								<td>${board.idx }</td>
-								<td>${board.title }</td>
+								<td><a href="detail?idx=${board.idx }">${board.title }</a></td>
 								<td>${board.writer }</td>
 								<td>${board.indate }</td>
 								<td>${board.count }</td>

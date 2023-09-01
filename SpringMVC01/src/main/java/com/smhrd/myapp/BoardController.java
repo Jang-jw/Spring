@@ -27,6 +27,8 @@ public class BoardController {
 	@Autowired
 	private BoardMapper mapper;
 	
+	private Model model;
+	
 	@Autowired
 	private SqlSessionFactoryBean factory;
 
@@ -101,6 +103,24 @@ public class BoardController {
 	public String delete(Board board) {
 		
 		mapper.delete(board);
+		
+		return "redirect:/list";
+	}
+	
+	@RequestMapping("/detail")
+	public String detail(int idx, Model model) {
+		
+		Board board = mapper.detail(idx);
+		
+		model.addAttribute("board", board);
+		
+		return "boardDetail";
+	}
+	
+	@RequestMapping("/update")
+	public String update(Board board) {
+		
+		mapper.update(board);
 		
 		return "redirect:/list";
 	}
