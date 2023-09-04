@@ -40,4 +40,23 @@
 		count = count + 1
 		where idx = #{idx}
 	</update>
+	
+	<select id="search" resultType="com.smhrd.entity.Board">
+		select * from BOARD
+		where title like '%${search}%'
+	</select>
+	
+	<select id="rank" resultType="int">
+		select count(*) as cnt
+  		  from BOARD
+ 		 group by writer
+ 		 order by cnt DESC limit 5
+	</select>
+	
+	<select id="writer" resultType="java.lang.String">
+		select writer, count(*) as cnt
+  		  from BOARD
+ 		 group by writer
+ 		 order by cnt DESC limit 5
+	</select>
 </mapper>

@@ -16,4 +16,5 @@ public class Board {
 	private String img;
 	private String indate;
 	private String count;
+	private int[] cnt;
 }

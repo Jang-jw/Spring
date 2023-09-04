@@ -21,3 +21,8 @@ insert into BOARD (title, writer, content)
 values ('스프링 게시판 만들기2','관리자','스프링을 활용한 게시판 만들기2');
 
 select * from BOARD ;
+
+select writer, count(*) as cnt
+  		  from BOARD
+ 		 group by writer
+ 		 order by cnt DESC limit 5 ;

@@ -20,5 +20,8 @@ public interface BoardMapper { // Data Access "Object" 가 아님
 	public int update(Board board);
 	public void count(Board board);
 	public int count(int idx);
+	public List<Board> search(String search);
+	public int[] rank();
+	public String[] writer();
 	
 }

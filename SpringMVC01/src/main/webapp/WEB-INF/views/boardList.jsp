@@ -34,6 +34,14 @@
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
+							<td colspan="5">
+								<input type="text" name="search" class="form-control">
+							</td>
+							<td>
+								<button id="searchBtn" class="btn btn-secondary">검색</button>
+							</td>
+						</tr>
+						<tr>
 							<th>idx
 							</td>
 							<th>제목
@@ -68,6 +76,70 @@
 			<div class="card-footer">DCX 빅데이터 8회차 안현진</div>
 		</div>
 	</div>
+	
+	<div class="card">
+		test
+	</div>
+	
+	<script>
+		$(document).ready(function(){
+			$('#searchBtn').on('click',function(){
+				const input = $('input[name=search]')
+				$.ajax({
+					url : 'search',
+					type : 'get',
+					data : {
+						'search' : input.val()
+					},
+					success : function(res){
+						console.log(res);
+						
+						const tbd = $('tbody');
+						tbd.html('');
+						for(let i = 0; i < res.length; i++){
+							
+							// 한 행을 만들고
+							var tr = `
+								<tr>
+									<td>\${res[i].idx}</td>
+									<td><a href="detail?idx=\${res[i].idx}">\${res[i].title}</a></td>
+									<td>\${res[i].writer}</td>
+									<td>\${res[i].indate}</td>
+									<td>\${res[i].count}</td>
+									<td>\${res[i].count}</td>
+									<td><a href="delete?idx=\${res[i].idx}" class="btn btn-secondary">삭제</a></td>
+								</tr>
+								`;
+							
+							// tbd 에 집어넣기 
+							tbd.append(tr);
+						}
+					},
+					error : function(){
+						console.log("error");
+					}
+				});
+			}); // 버튼 클릭이벤트 끝 
+			rank();
+		});
+		
+		function rank(){
+			
+			// 비동기 통신을 이용해서,  
+			// 가장 많은 게시글을 작성한 5명의 사용자의 이름과 작성한 게시글 수를 가져오는 함수
+			// 응답받은 내용을 console 창에 출력 
+			$.ajax({
+				url : 'rank',
+				dataType : 'json',
+				success : function(res){
+					console.log(res);
+				},
+				error : function(){
+					console.log("error");
+				}
+			});
+		}
+	</script>
 
 </body>
 </html>
