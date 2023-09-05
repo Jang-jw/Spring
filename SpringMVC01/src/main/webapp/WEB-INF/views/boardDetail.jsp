@@ -49,7 +49,7 @@
 
 					<div class="form-group">
 						<label for="img">IMG File:</label> 
-						<img alt="이미지 없음" src="이미지의 경로">
+						<img alt="이미지 없음" src="${board.img }">
 					</div>
 
 					<div class="form-group">

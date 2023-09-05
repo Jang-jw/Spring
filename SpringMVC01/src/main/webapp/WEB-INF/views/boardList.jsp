@@ -34,9 +34,8 @@
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<td colspan="5">
-								<input type="text" name="search" class="form-control">
-							</td>
+							<td colspan="5"><input type="text" name="search"
+								class="form-control"></td>
 							<td>
 								<button id="searchBtn" class="btn btn-secondary">검색</button>
 							</td>
@@ -63,7 +62,8 @@
 								<td>${board.indate }</td>
 								<td>${board.count }</td>
 								<%-- delete from BOARD where idx = #{idx} --%>
-								<td><a href="delete?idx=${board.idx }" class="btn btn-secondary">삭제</a></td>
+								<td><a href="delete?idx=${board.idx }"
+									class="btn btn-secondary">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -76,11 +76,12 @@
 			<div class="card-footer">DCX 빅데이터 8회차 안현진</div>
 		</div>
 	</div>
-	
+
 	<div class="card">
-		test
+		<canvas id="myChart"></canvas>
 	</div>
-	
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 		$(document).ready(function(){
 			$('#searchBtn').on('click',function(){
@@ -133,11 +134,42 @@
 				dataType : 'json',
 				success : function(res){
 					console.log(res);
+					drawChart(res);
 				},
 				error : function(){
 					console.log("error");
 				}
 			});
+		}
+		
+		function drawChart(json){
+			  const ctx = document.getElementById('myChart');
+
+			  new Chart(ctx, {
+			    type: 'bar',
+			    data: {
+			      labels: json.writer,
+			      datasets: [{
+			        label: '#', // # : numbers 
+			        backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                  ],
+			        data: json.cnt,
+			        borderWidth: 1
+			      }]
+			    },
+			    options: {
+			      scales: {
+			        y: {
+			          beginAtZero: true
+			        }
+			      }
+			    }
+			  });
 		}
 	</script>
 

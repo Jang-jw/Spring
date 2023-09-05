@@ -1,6 +1,10 @@
 package com.smhrd.myapp;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.Board;
 import com.smhrd.mapper.BoardMapper;
@@ -72,9 +78,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/write")
-	public String write(Board board) {
+	public String write(MultipartFile file, Board board, HttpSession session) {
 	// public String write( @RequestParam("title") String subject, String writer, String content) {
 		
+		// 파일 수집 
+		// 1. UUID 생성 : 16글자 랜덤한 문자열
+		String uuid = UUID.randomUUID().toString(); // 0123-4567-asdf-qwer_cat.jpg 
+		
+		// 2. uuid + file 이름, 저장할 이름을 생성 
+		String filename = uuid + "_" + file.getOriginalFilename();
+		
+		// 3. 어디에 저장할지 
+		String savePath = session.getServletContext().getRealPath("resources/img");
+		
+		// 4. 위에서 만든 내용을 기반으로 Path 객체 만들기 
+		Path path = Paths.get(savePath + "/" + filename);
+		System.out.println(path);
+		
+		// 5. 파일 저장하기 
+		try {
+			Files.copy(file.getInputStream(), path);
+			
+			// 6. 수집 완료된 Board 에 img 경로 추가해주기 
+			board.setImg("resources/img/" + filename);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		// 1. 수집
 		/* 
 		String title = request.getParameter("title");
@@ -90,7 +121,7 @@ public class BoardController {
 		// 매개변수에 수집해서 받을 수 있는 변수를 선언을 하면 알아서 넣어준다. 
 		// 	- 만약에 DTO 를 이용해서 수집한다면, 반드시 name 값과 필드변수명이 같아야 한다. 
 		//	- 하나의 데이터를 받을때도 변수명 == name 값이 같아야함, int 로 변환까지 자동으로 가능
-		//	- 변수명이 일치하지 않는 경우도 @RequestParam("name") 으로 수집을 진행할 수 있다. 
+		//	- 변수명이 일치하지 않는 경우도 @RequestParam("name") 으로 수집을 진행할 수 있다.
 		
 		// 2. 기능 구현 / 실행 
 		mapper.write(board);

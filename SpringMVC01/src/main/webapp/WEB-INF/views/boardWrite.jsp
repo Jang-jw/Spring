@@ -28,7 +28,7 @@
 			<div class="card-body">
 
 
-				<form action="write" method="post">
+				<form action="write" method="post" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label for="title">Title:</label> <input type="text"
@@ -44,7 +44,7 @@
 
 					<div class="form-group">
 						<label for="img">IMG File:</label> <input type="file" id="img"
-							name="file">
+							name="file" mutiple="mutiple">
 					</div>
 
 					<div class="form-group">
